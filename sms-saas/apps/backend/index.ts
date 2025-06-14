@@ -13,6 +13,12 @@ const modem = new SerialPort({
   autoOpen: false,
 });
 
+SerialPort.list().then((ports) => {
+  ports.forEach((port) => {
+    console.log(`🔌 ${port.path} | ${port.manufacturer}`);
+  });
+});
+
 function sendCommand(command: string) {
   return new Promise<string>((resolve, reject) => {
     modem.write(command + "\r", (err) => {
